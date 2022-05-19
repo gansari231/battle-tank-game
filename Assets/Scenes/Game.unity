@@ -867,6 +867,7 @@ GameObject:
   m_Component:
   - component: {fileID: 502101364}
   - component: {fileID: 502101365}
+  - component: {fileID: 502101366}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -912,6 +913,24 @@ MonoBehaviour:
   - {fileID: 728298947}
   - {fileID: 215627014}
   - {fileID: 1878800687}
+--- !u!114 &502101366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502101363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7af3216d980e44fa1360535c1d68a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  itemsToPool:
+  - objectToPool: {fileID: 9182222470775221792, guid: d22bd1e6806f92a4ab0a2de2f8ad8dfd,
+      type: 3}
+    amountToPool: 3
+    shouldExpand: 0
 --- !u!1 &632325679 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1143231799556094, guid: 0aac6aef14f064c3fb626270cff2683b,

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace BulletServices
 {
@@ -11,6 +12,7 @@ namespace BulletServices
         public AudioSource explosionSound;
 
         public LayerMask layerMask;
+        internal bool activeInHierarchy;
 
         public void SetBulletController(BulletController controller)
         {
@@ -29,7 +31,8 @@ namespace BulletServices
 
         public void DestroyBullet()
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         public void DestroyParticleSystem(ParticleSystem particles)

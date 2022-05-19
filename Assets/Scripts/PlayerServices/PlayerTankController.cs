@@ -140,7 +140,7 @@ namespace PlayerTankServices
             }
         }
 
-        public void SubscribeEvents()
+        /*public void SubscribeEvents()
         {
             EventHandler.Instance.OnBulletFired += FiredBullet;
         }
@@ -148,7 +148,7 @@ namespace PlayerTankServices
         public void UnsubscribeEvents()
         {
             EventHandler.Instance.OnBulletFired -= FiredBullet;
-        }
+        }*/
 
         public void FiredBullet()
         {
@@ -162,7 +162,7 @@ namespace PlayerTankServices
 
             tankModel.BulletsFired++;
             AchievementSystem.Instance.BulletsFiredCountCheck(tankModel.BulletsFired);
-            EventHandler.Instance.InvokeOnBulletFired();
+            //EventHandler.Instance.InvokeOnBulletFired();
         }  
     }
 }
