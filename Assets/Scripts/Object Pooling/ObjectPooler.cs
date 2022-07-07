@@ -1,63 +1,70 @@
-using BulletServices;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-[System.Serializable]
-public class ObjectPoolItem
+namespace GlobalServices
 {
-    public BulletView objectToPool;
-    public int amountToPool;
-    public bool shouldExpand;
-}
-
-public class ObjectPooler : MonoBehaviour
-{
-    public static ObjectPooler SharedInstance;
-    public List<BulletView> pooledObjects;
-    public List<ObjectPoolItem> itemsToPool;
-
-    private void Awake()
+    [System.Serializable]
+    public class ObjectPoolItem<T>
     {
-        SharedInstance = this;
+        public T item;
+        public bool b_IsUsed;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public class ObjectPoolService<T> : MonoSingletonGeneric<ObjectPoolService<T>> where T : class
     {
-        pooledObjects = new List<BulletView>();
-        foreach (ObjectPoolItem item in itemsToPool)
+        public List<ObjectPoolItem<T>> pooledItems = new List<ObjectPoolItem<T>>();
+
+        public int amountToPool = 1;
+
+        private void Start()
         {
-            for (int i = 0; i < item.amountToPool; i++)
+            while (amountToPool != 0)
             {
-                BulletView obj = (BulletView)Instantiate(item.objectToPool);
-                //obj.SetActive(false);
-                pooledObjects.Add(obj);
+                CreateNewPooledItem();
+                amountToPool--;
             }
         }
-    }
-    public BulletView GetPooledObject(string itemTag)
-    {
-        for (int i = 0; i < pooledObjects.Count; i++)
+
+        protected virtual T GetItem()
         {
-            if (!pooledObjects[i].activeInHierarchy && pooledObjects[i].tag == itemTag)
+            if (pooledItems.Count > 0)
             {
-                return pooledObjects[i];
-            }
-        }
-        foreach (ObjectPoolItem item in itemsToPool)
-        {
-            if (item.objectToPool.tag == itemTag)
-            {
-                if (item.shouldExpand)
+                ObjectPoolItem<T> item = pooledItems.Find(i => i.b_IsUsed == false);
+
+                if (item != null)
                 {
-                    BulletView obj = (BulletView)Instantiate(item.objectToPool);
-                    //obj.SetActive(false);
-                    pooledObjects.Add(obj);
-                    return obj;
+                    return item.item;
                 }
+                return CreateNewPooledItem();
+            }
+            return CreateNewPooledItem();
+        }
+
+        public T CreateNewPooledItem()
+        {
+            ObjectPoolItem<T> pooledItem = new ObjectPoolItem<T>();
+            pooledItem.item = CreateItem();
+            pooledItem.b_IsUsed = true;
+            pooledItems.Add(pooledItem);
+            return pooledItem.item;
+        }
+
+        public virtual void ReturnItemToPool(T item)
+        {
+            ObjectPoolItem<T> pooledItem = pooledItems.Find(i => i.item.Equals(item));
+            pooledItem.b_IsUsed = false;
+        }
+
+        public virtual T CreateItem()
+        {
+            return (T)null;
+        }
+
+        public virtual void RemoveAllPooledItems()
+        {
+            for (int i = 0; i < pooledItems.Count; i++)
+            {
+                pooledItems.Remove(pooledItems[i]);
             }
         }
-        return null;
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44504875, g: 0.49464083, b: 0.57373863, a: 1}
+  m_IndirectSpecularColor: {r: 0.44504857, g: 0.4946407, b: 0.57373834, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -927,9 +927,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pooledObjects: []
   itemsToPool:
-  - objectToPool: {fileID: 9182222470775221792, guid: d22bd1e6806f92a4ab0a2de2f8ad8dfd,
+  - objectToPool: {fileID: 9182222470775253132, guid: d22bd1e6806f92a4ab0a2de2f8ad8dfd,
       type: 3}
-    amountToPool: 3
+    amountToPool: 1
     shouldExpand: 0
 --- !u!1 &632325679 stripped
 GameObject:

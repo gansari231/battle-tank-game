@@ -11,17 +11,10 @@ namespace BulletServices
         public BulletController(BulletModel model, BulletView bulletPrefab, Transform fireTransform, float launchForce)
         {
             bulletModel = model;
-            BulletView bullet = ObjectPooler.SharedInstance.GetPooledObject("Bullet");
-            if (bullet != null)
-            {
-                /*bullet.transform.position = fireTransform.position * launchForce;
-                bullet.transform.rotation = fireTransform.rotation;
-                bullet.SetActive(true);*/
-
-                bulletView = GameObject.Instantiate<BulletView>(bullet, fireTransform.position, fireTransform.rotation);
-                bulletView.SetBulletController(this);
-                bulletView.GetComponent<Rigidbody>().velocity = fireTransform.forward * launchForce;
-            }
+            //bulletView = GameObject.Instantiate<BulletView>(bulletPrefab, fireTransform.position, fireTransform.rotation);
+            //bulletView = BulletObjectPool.get
+            bulletView.SetBulletController(this); 
+            bulletView.GetComponent<Rigidbody>().velocity = fireTransform.forward * launchForce;
         }
 
         public void OnCollisionEnter(Collider other)

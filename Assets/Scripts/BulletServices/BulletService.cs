@@ -8,9 +8,9 @@ namespace BulletServices
     {
         public BulletSOList bulletList;
 
-        public void FireBullet(BulletType bulletType, Transform bulletTransform, float launchForce)
+        public BulletController FireBullet(BulletType bulletType, Transform bulletTransform, float launchForce)
         {
-            CreateBullet(bulletType, bulletTransform, launchForce);
+            return CreateBullet(bulletType, bulletTransform, launchForce);
         }
 
         private BulletController CreateBullet(BulletType bulletType, Transform bulletTransform, float launchForce)
@@ -24,7 +24,9 @@ namespace BulletServices
                                                               bulletList.bulletTypes[(int)bulletType].explosionRadius,
                                                               bulletList.bulletTypes[(int)bulletType].explosionForce);
 
-                    BulletController bulletController = new BulletController(bulletModel, bulletList.bulletTypes[(int)bulletType].bulletView, bulletTransform, launchForce);
+                    //BulletController bulletController = new BulletController(bulletModel, bulletList.bulletTypes[(int)bulletType].bulletView, bulletTransform, launchForce);
+                    BulletController bulletController = BulletObjectPool.Instance.CreateItem();
+                    bulletController = new BulletController(bulletModel, bulletList.bulletTypes[(int)bulletType].bulletView, bulletTransform, launchForce);
                     return bulletController;
                 }
             }
